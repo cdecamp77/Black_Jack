@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- <link rel="stylesheet" href="css/cardstarter.css"> -->
+    <script
+  		src="https://code.jquery.com/jquery-3.2.1.min.js"
+  		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  		crossorigin="anonymous"></script>
+    <script defer src="js/main.js"></script>
+    <title>BlackJack</title>
+</head>
+<body>
+    <div class="message ">
+        <h1>Wanna Win Some Money???</h1>
+    </div>
+    <div class="row row-1">
+        <div class="col-6 dTotal"></div>
+        <div class="col-6 card dealerCards"></div>
+     </div> 
+     <div class="row row-2"> 
+        <div class="col-4  card playerCards"></div>
+        <div class="col-8 pTotal"></div>
+     </div> 
+     <div class="row row-3"> 
+        <div class="col-4 bankTotal">Bank Total: $1000</div>
+        <input class=" col-2 player playerName" type = "text" placeholder = "Player Name">
+        <button class="col-2 deal">Deal</button>
+        <button class="col-2 hit player-btn" disabled>Hit</button>
+        <button class="col-2 stay player-btn" disabled>Stay</button>
+     </div> 
+     <div class="row row-4"> 
+        <div class="col-4 wage">Wage Total:</div>
+        <button class="col-2 upBet">Increase Bet</button>
+        <button class="col-2 downBet">Decrease Bet</button>
+        <button class="col-2 double player-btn" disabled>Double</button>
+        <button class="col-2 split player-btn" disabled>Split</button>  
+    </div>
+    
+</body>
+</html>
