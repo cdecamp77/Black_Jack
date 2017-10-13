@@ -11,6 +11,8 @@ var dealerTotal = computeHand(dealerHand);
 var playerTotal = computeHand(playerHand);
 
 /*----- app's state (variables) -----*/
+
+// create the deck
 function Card(value, name, suit, img) {
   this.value = value;
   this.name = name;
@@ -79,7 +81,6 @@ $(function () {
       playerDone = true;
       disable();
       dealerTotal = computeHand(dealerHand);
-  
       // dealer takes cards until they have to stay or bust
       while (dealerTotal <= 16) {
         dealerHand.push(dealRandomCard());
