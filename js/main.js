@@ -61,8 +61,9 @@ $(function () {
       busted();
       render();
     }
+    renderPlayer();
     messTotal();
-    document.querySelector('.dTotal').innerHTML = "Dealer showing " + (dealerTotal - dealerHand[0].value);  
+    document.querySelector('.dTotal').innerHTML = "Dealer showing " + (dealerTotal - dealerHand[1].value);  
   });
 
   $('.double').on('click', function () {
@@ -115,6 +116,7 @@ function deal() {
     dealerHand = [];
     deal();
   }
+  renderCards();
 }
 
 //computes hands for both players, taking acct for aces
@@ -229,11 +231,13 @@ function render() {
     disable();
     renderMoney();
     messTotal();
+    renderPlayer();
+    renderCards();
 }
 
 //checks for winner
 function checkWinner () {
-  debugger;
+  // debugger;
   if (playerTotal > dealerTotal && playerTotal < 22) {
     winner = true;
     setMessage('Player has won, checkWinner');
@@ -283,7 +287,28 @@ function reset() {
   }
 }
 
+function renderCards() { 
+  document.querySelector('.dealerCards').innerHTML = '';
+  dealerHand.forEach(function (card, i) {
+    var cardDiv = document.createElement('div');
+    if (i == 0) {
+      cardDiv.className = 'card '+card.img;
+    } else {
+      cardDiv.className = 'card back-blue';
+    }
+    
+    document.querySelector('.dealerCards').append(cardDiv);
+  })
+}
 
+function renderPlayer() {
+  document.querySelector('.playerCards').innerHTML = '';
+  playerHand.forEach(function (card){
+    var cardDiv = document.createElement('div');
+    cardDiv.className = 'card '+card.img;
+    document.querySelector('.playerCards').append(cardDiv);
+  })
+}
 
 deck.createAllCards();
 document.querySelector('.downBet').setAttribute('disabled', '')
