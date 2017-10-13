@@ -10,6 +10,10 @@ function split(playerHand) {
     checkWinner();
 }
 }}
+$('.double').on('click', function () {
+  double();
+})
+
 
 function double() {
     playerDone = true;
@@ -19,6 +23,7 @@ function double() {
         winner = false;
     }
     checkWinner();
+    render();
 }
 
 
