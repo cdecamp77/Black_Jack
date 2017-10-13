@@ -158,7 +158,6 @@ function setMessage(message) {
 
 //double down feature
 function double() {
-  debugger;
   wager = (wager * 2);
   // dealerTotal = computeHand(dealerHand);
   playerHand.push(dealRandomCard());
