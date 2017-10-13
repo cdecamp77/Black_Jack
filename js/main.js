@@ -55,7 +55,7 @@ $(function () {
 
   $('.hit').on('click', function () {
     playerHand.push(dealRandomCard());
-    // computeHand(playerHand);
+    computeHand(playerHand);
     messTotal();
     if (playerTotal > 21) {
       busted();
@@ -71,7 +71,7 @@ $(function () {
 
   $('.stay').on('click', function () {
     disable();
-    // dealerTotal = computeHand(dealerHand);
+    dealerTotal = computeHand(dealerHand);
 // dealer takes cards until they have to stay or bust
     while (dealerTotal <= 16) {
       dealerHand.push(dealRandomCard());
@@ -184,6 +184,9 @@ function checkBJ () {
     document.querySelector('.deal').removeAttribute('disabled'); 
   }
   render();
+  if (playerHand.length == 2) {
+    disable();
+  }
   }
 
 // increases wager amount
@@ -246,34 +249,29 @@ function checkWinner () {
   }
   if (winner) {
     bank = bank + wager;
-  // render();
   } else {
+    if (playerTotal != dealerTotal) {
     wager = 0;
-    // disable();
-    // render();
+    }
   }
   reset()
   render();
 }
 
+//checks to see if anyone has busted or not
 function busted() {
-  // playerTotal = computeHand(playerHand);
-  // dealerTotal = computeHand(dealerHand);
+  playerTotal = computeHand(playerHand);
+  dealerTotal = computeHand(dealerHand);
   if (playerTotal > 21) {
     wager = 0; 
     setMessage('You have busted');
     document.querySelector('.deal').removeAttribute('disabled');
     document.querySelector('.upBet').removeAttribute('disabled');
-    // messTotal();
-    // disable ();
-  document.querySelector('.downBet').setAttribute('disabled', '')    
+    document.querySelector('.downBet').setAttribute('disabled', '')    
   } 
   if (dealerTotal > 21) {
     winner = true;
     setMessage('Dealer has busted');
-    // messTotal();
-    // disable();
-    // render();
   }
   render();
 }
@@ -284,6 +282,8 @@ function reset() {
     bank = 1000;
   }
 }
+
+
 
 deck.createAllCards();
 document.querySelector('.downBet').setAttribute('disabled', '')
