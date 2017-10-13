@@ -68,9 +68,12 @@ $(function () {
     });
   
     $('.double').on('click', function () {
+      wager = wager * 2;
+      renderMoney();
       playerDone = true;
       renderDealer();
       double();
+      render();
     });
   
     $('.stay').on('click', function () {
@@ -216,13 +219,13 @@ function disable() {
 
 //double down feature
 function double() {
-    wager = wager * 2;
     playerHand.push(dealRandomCard());
     playerTotal = computeHand(playerHand);
     if (playerTotal > 21) {
         winner = false;
         setMessage('Double was not succesful');
         render();
+        wager = 0;
     } else if (playerTotal < 22 && dealerTotal != 21) { 
       // dealer takes cards until they have to stay or bust
           while (dealerTotal <= 16) {
@@ -232,14 +235,7 @@ function double() {
             busted();
           } 
           checkWinner();
-          if (winner) {
-              bank = bank + (wager * 3);
-          } else if (winner != true) {
-              bank = bank - (wager * 2);
-              wager = 0;
-          }
-
-    }
+    } 
     render();
     document.querySelector('.deal').removeAttribute('disabled');
     document.querySelector('.upBet').removeAttribute('disabled');
@@ -250,19 +246,27 @@ function checkBJ () {
     playerTotal = computeHand(playerHand);
     dealerTotal = computeHand(dealerHand);
     if (dealerTotal == 21 && playerTotal != 21) {
+      playerDone = true;
       winner = false;
       setMessage('Dealer got BlackJack, not your day');
       wager = 0;
       document.querySelector('.deal').removeAttribute('disabled');
-    } else if (playerTotal == 21) {
+    } else if (playerTotal == 21 && dealerTotal != 21) {
+      playerDone = true;
       bank = bank + (wager * 1.5);
       setMessage('Winner!! Winner!! Chicken Dinner!!');
       document.querySelector('.deal').removeAttribute('disabled'); 
+    } else if (playerTotal == 21 && dealerTotal == 21) {
+      playerDone = true;
+      setMessage('Not the best time for a BlackJack, next time.')
     }
-    render();
+    // render();
     if (playerHand.length == 2) {
       disable();
     }
+    // if (playerDone != false) {
+    //   render();
+    // }
     }
 
 //checks to see if anyone has busted or not
@@ -289,6 +293,7 @@ function checkWinner () {
     if (playerTotal > dealerTotal && playerTotal < 22) {
       winner = true;
       setMessage('Drinks are on you this evening.');
+
     } else if (dealerTotal > 21) {
       busted();
     } else if (dealerTotal == playerTotal) {
@@ -301,6 +306,7 @@ function checkWinner () {
     }
     if (winner) {
       bank = bank + wager;
+      document.querySelector('.downBet').removeAttribute('disabled');
     } else {
       if (playerTotal != dealerTotal) {
       wager = 0;
