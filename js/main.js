@@ -33,7 +33,7 @@ Deck.prototype.createAllCards = function () {
 Deck.names = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 Deck.values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11];
 Deck.suits = ['h', 'd', 's', 'c'];
-;
+
 
 /*----- event listeners -----*/
 $(function () {
@@ -79,7 +79,8 @@ $(function () {
     playerDone = true;
     disable();
     dealerTotal = computeHand(dealerHand);
-// dealer takes cards until they have to stay or bust
+
+    // dealer takes cards until they have to stay or bust
     while (dealerTotal <= 16) {
       dealerHand.push(dealRandomCard());
       dealerTotal = computeHand(dealerHand);
@@ -89,12 +90,14 @@ $(function () {
     document.querySelector('.deal').removeAttribute('disabled');
     document.querySelector('.upBet').removeAttribute('disabled');
     document.querySelector('.downBet').removeAttribute('disabled');
-  checkWinner();
-  render();
+    checkWinner();
+    render();
 });
+
   $('.upBet').on('click', function (){
     upBet();
   });
+
   $('.downBet').on('click', function (){
     downBet();
   });
@@ -108,7 +111,7 @@ function dealRandomCard() {
 }
 // deals the initial cards to the player and dealer
 function deal() {
-  setMessage('Player, what would you like to do?');
+  setMessage('What would you like to do?');
   if (playerHand.length == 0) {
     playerHand.push(dealRandomCard());
     dealerHand.push(dealRandomCard());
@@ -143,7 +146,7 @@ function computeHand(hand) {
 function messTotal() {
     playerTotal = computeHand(playerHand);
     dealerTotal = computeHand(dealerHand);
-    document.querySelector('.pTotal').innerHTML = "Player total is " + playerTotal;
+    document.querySelector('.pTotal').innerHTML = "Looks like you have " + playerTotal;
     document.querySelector('.dTotal').innerHTML = "Dealer has " + dealerTotal;
 }
 
@@ -152,16 +155,19 @@ function setMessage(message) {
     document.querySelector('.message').innerHTML = message;
 }
 
+
+//double down feature
 function double() {
   debugger;
-  wager = wager * 2;
+  wager = (wager * 2);
   // dealerTotal = computeHand(dealerHand);
   playerHand.push(dealRandomCard());
-  playerTotal = computeHand(playerHand)
+  playerTotal = computeHand(playerHand);
   if (playerTotal > 21) {
       winner = false;
       bank = bank - wager;
-      setMessage('Double was not succesful')
+      setMessage('Double was not succesful');
+      render();
   } else if (playerTotal < 22 && dealerTotal != 21) { 
     // dealer takes cards until they have to stay or bust
         while (dealerTotal <= 16) {
@@ -183,12 +189,12 @@ function checkBJ () {
   dealerTotal = computeHand(dealerHand);
   if (dealerTotal == 21 && playerTotal != 21) {
     winner = false;
-    setMessage('Dealer got 21, not your day');
+    setMessage('Dealer got BlackJack, not your day');
     wager = 0;
     document.querySelector('.deal').removeAttribute('disabled');
   } else if (playerTotal == 21) {
     bank = bank + (wager * 1.5);
-    setMessage('You got 21!!');
+    setMessage('Winner!! Winner!! Chicken Dinner!!');
     document.querySelector('.deal').removeAttribute('disabled'); 
   }
   render();
@@ -203,8 +209,8 @@ function upBet() {
   bank = bank - 50;
   document.querySelector('.downBet').removeAttribute('disabled');
   if ((bank - wager) > bank || bank === 0) {
-    setMessage('Cannot bet more than bank amount');
-    document.querySelector('.upBet').setAttribute('disabled', '')
+    setMessage("I am afraid you don't have enough funds...");
+    document.querySelector('.upBet').setAttribute('disabled', '');
   } 
   renderMoney();
 }
@@ -214,7 +220,7 @@ function downBet() {
   wager = wager - 50;
   bank = bank + 50;
   if (wager <= 0 ) {
-    document.querySelector('.downBet').setAttribute('disabled', '')
+    document.querySelector('.downBet').setAttribute('disabled', '');
   } if (wager <= bank) {
     document.querySelector('.upBet').removeAttribute('disabled', '');
   }
@@ -234,7 +240,7 @@ function renderMoney() {
 }
 //renders
 function render() {
-  renderCards()
+  renderCards();
   disable();
   renderMoney();
   messTotal();
@@ -243,16 +249,15 @@ function render() {
 
 //checks for winner
 function checkWinner () {
-  // debugger;
   if (playerTotal > dealerTotal && playerTotal < 22) {
     winner = true;
-    setMessage('Player has won, checkWinner');
-  } else if (dealerTotal > 21){
+    setMessage('Drinks are on you this evening.');
+  } else if (dealerTotal > 21) {
     busted();
   } else if (dealerTotal == playerTotal) {
-    setMessage('You have pushed, checkwinner');
+    setMessage('No winner here. Better than losing.');
   } else {
-    setMessage('Dealer has won, checkwinner');
+    setMessage('Dealer got lucky.');
     winner = false;
     wager = 0;
     document.querySelector('.downBet').setAttribute('disabled', '');
@@ -264,7 +269,7 @@ function checkWinner () {
     wager = 0;
     }
   }
-  reset()
+  reset();
   render();
 }
 
@@ -274,18 +279,20 @@ function busted() {
   dealerTotal = computeHand(dealerHand);
   if (playerTotal > 21) {
     wager = 0; 
-    setMessage('You have busted');
+    setMessage('You took one too many.');
     document.querySelector('.deal').removeAttribute('disabled');
     document.querySelector('.upBet').removeAttribute('disabled');
-    document.querySelector('.downBet').setAttribute('disabled', '')    
+    document.querySelector('.downBet').setAttribute('disabled', '');   
+    messTotal();
   } 
   if (dealerTotal > 21) {
     winner = true;
-    setMessage('Dealer has busted');
+    setMessage("The dealer can't count!");
   }
   render();
 }
 
+// resets the game if the bank runs out
 function reset() {
   if(bank === 0 && wager === 0) {
     setMessage('You have run out of money, good thing you bought in again, good luck');
@@ -293,6 +300,7 @@ function reset() {
   }
 }
 
+// renders the cards the dealer is dealt
 function renderCards() { if (dealerHand.length == 2 && playerDone == false) {
   document.querySelector('.dealerCards').innerHTML = '';
   dealerHand.forEach(function (card, i) {
@@ -304,28 +312,30 @@ function renderCards() { if (dealerHand.length == 2 && playerDone == false) {
     }
     document.querySelector('.dealerCards').append(cardDiv);
   })
-} else {
-  renderDealer();
+    } else {
+      renderDealer();
 }
 }
 
+//renders the cards after the player stays
 function renderDealer() {
   document.querySelector('.dealerCards').innerHTML = '';
   dealerHand.forEach(function (card) {
     var cardDiv = document.createElement('div');
     cardDiv.className = 'card '+card.img;
     document.querySelector('.dealerCards').append(cardDiv);
-  })
+  });
 }
 
+//renders the players cards
 function renderPlayer() {
   document.querySelector('.playerCards').innerHTML = '';
   playerHand.forEach(function (card){
     var cardDiv = document.createElement('div');
     cardDiv.className = 'card '+card.img;
     document.querySelector('.playerCards').append(cardDiv);
-  })
+  });
 }
 
 deck.createAllCards();
-document.querySelector('.downBet').setAttribute('disabled', '')
+document.querySelector('.downBet').setAttribute('disabled', '');

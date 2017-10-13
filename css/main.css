@@ -9,23 +9,23 @@
    clear: both;
    display: table;
 }
-/* [class*="col-"] {
+[class*="col-"] {
    float: left;
-   padding: 15px;
-} */
+   padding: 18px;
+}
 
-.col-1 {width: 8.33%;float: left;padding: 15px;}
-.col-2 {width: 16.66%;float: left;padding: 15px;}
-.col-3 {width: 25%;float: left;padding: 15px;}
-.col-4 {width: 33.33%;float: left;padding: 15px;}
-.col-5 {width: 41.66%;float: left;padding: 15px;}
-.col-6 {width: 50%;float: left;padding: 15px;}
-.col-7 {width: 58.33%;float: left;padding: 15px;}
-.col-8 {width: 66.66%;float: left;padding: 15px;}
-.col-9 {width: 75%;float: left;padding: 15px;}
-.col-10 {width: 83.33%;float: left;padding: 15px;}
-.col-11 {width: 91.66%;float: left;padding: 15px;}
-.col-12 {width: 100%;float: left;padding: 15px;}
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
 
 body {
    background-image: url("http://acepokersolutions.com/poker-software/bovada-mods/APS-t1.jpg");
@@ -34,39 +34,43 @@ body {
 }  
 
 .message, h1 {
-   font-size: 30px;
-   text-align: center;
-   color: red;
-   background: black;
+    margin: 15px;
+    font-family: "Arvo", serif;
+    font-size: 50px ;
+    text-align: center;
+    background: #111;
+    color: rgba(248, 36, 36, 0.877);
+}
+
+.player-btn, .player {
+    font-family: "Righteous", cursive;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: rgba(3, 231, 3, 0.3);
+    box-shadow: inset 0 0 0 5px rgba(1, 121, 1, 0.9);
+    border: 5px inset black;
 }
 
 .deal {
-   font-size: 25px;
-   font-weight: bold;
    background: blue;
 }
 
 .hit {
-   font-size: 25px;
-   font-weight: bold;  
    background: green;  
 }
 
 .stay {
-   font-size: 25px;
-   font-weight: bold;
    background: red;   
 }
 
 .double {
-   font-size: 25px;
-   font-weight: bold;
    background: yellow;
 }
 
 .split {
-   font-size: 25px;
-   font-weight: bold;
    background: orange;
 }
 
@@ -76,40 +80,37 @@ body {
    font-weight: bold;
 }
 
-.wage{
-   color: yellowgreen;
-   font-size: 25px;
-   background: rgba(0,0,0,.5);
-}
-
-.bankTotal {
-   color: yellowgreen;
-   font-size: 25px;
-   background: rgba(0,0,0,.5);
+.wage, .bankTotal {
+    font-family: "Orbitron", sans-serif;
+    color: yellowgreen;
+    font-size: 25px;
+    background: rgba(0,0,0,.5);
 }
 
 .player {
    color: orangered;
-   font-size: 25px;
-   font-weight: bold;
    background: black;
    text-align: center;
 }
 
-.dTotal {
-   font-size: 25px;
+.dTotal, .pTotal {
+   font-size: 30px;
    color: green;
-   background-color: black;
+   background: rgba(0, 0, 0, 0.75);
+   font-family: "Permanent Marker", cursive;
+   border-radius: 5px 10px 15px 20px;
 } 
-
-.pTotal {
-   font-size: 25px;
-   color: green;
-   background-color: black;
-}
 
 .card {
     width: 8em;
     height: 11em;
-    float: 
+    float: left;
+}
+
+.playerCards, .dealerCards {
+    height: 14em;
+}
+
+.playerCards {
+    float: right;
 }
