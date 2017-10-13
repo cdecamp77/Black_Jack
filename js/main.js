@@ -68,7 +68,6 @@ $(function () {
     });
   
     $('.double').on('click', function () {
-      wager = wager * 2;
       renderMoney();
       playerDone = true;
       renderDealer();
@@ -219,6 +218,7 @@ function disable() {
 
 //double down feature
 function double() {
+    wager = (wager * 2);
     playerHand.push(dealRandomCard());
     playerTotal = computeHand(playerHand);
     if (playerTotal > 21) {
@@ -236,6 +236,12 @@ function double() {
           } 
           checkWinner();
     } 
+    if (winner) {
+      bank = bank + wager;
+      wager = 0;
+    } else {
+      bank = bank - (wager * 2);
+    }
     render();
     document.querySelector('.deal').removeAttribute('disabled');
     document.querySelector('.upBet').removeAttribute('disabled');
@@ -250,23 +256,22 @@ function checkBJ () {
       winner = false;
       setMessage('Dealer got BlackJack, not your day');
       wager = 0;
-      document.querySelector('.deal').removeAttribute('disabled');
+      document.querySelector('.deal').removeAttribute('disabled');      
     } else if (playerTotal == 21 && dealerTotal != 21) {
       playerDone = true;
       bank = bank + (wager * 1.5);
       setMessage('Winner!! Winner!! Chicken Dinner!!');
-      document.querySelector('.deal').removeAttribute('disabled'); 
+      document.querySelector('.deal').removeAttribute('disabled');      
     } else if (playerTotal == 21 && dealerTotal == 21) {
       playerDone = true;
-      setMessage('Not the best time for a BlackJack, next time.')
+      setMessage('Not the best time for a BlackJack, next time.');
+      document.querySelector('.deal').removeAttribute('disabled');      
     }
-    // render();
+    disable();
+    render();
     if (playerHand.length == 2) {
       disable();
     }
-    // if (playerDone != false) {
-    //   render();
-    // }
     }
 
 //checks to see if anyone has busted or not
@@ -293,7 +298,6 @@ function checkWinner () {
     if (playerTotal > dealerTotal && playerTotal < 22) {
       winner = true;
       setMessage('Drinks are on you this evening.');
-
     } else if (dealerTotal > 21) {
       busted();
     } else if (dealerTotal == playerTotal) {
