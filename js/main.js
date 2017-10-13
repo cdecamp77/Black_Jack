@@ -10,8 +10,6 @@ var deck = new Deck();
 var dealerTotal = computeHand(dealerHand);
 var playerTotal = computeHand(playerHand);
 
-/*----- app's state (variables) -----*/
-
 // create the deck
 function Card(value, name, suit, img) {
   this.value = value;
