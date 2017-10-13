@@ -5,6 +5,7 @@ var bank = 1000;
 var wager = 0;
 var counter = 0;
 var winner = false; 
+var playerDone = false;
 var deck = new Deck();
 var dealerTotal = computeHand(dealerHand);
 var playerTotal = computeHand(playerHand);
@@ -37,6 +38,7 @@ Deck.suits = ['h', 'd', 's', 'c'];
 /*----- event listeners -----*/
 $(function () {
   $('.deal').on('click', function () {
+    playerDone = false;
     counter = counter + 1;
       if (counter ===  5) {
         deck.cards = [];
@@ -47,7 +49,7 @@ $(function () {
     deal();
     checkBJ();
     render();
-    document.querySelector('.dTotal').innerHTML = "Dealer showing " + (dealerTotal - dealerHand[0].value);
+    document.querySelector('.dTotal').innerHTML = "Dealer showing " + (dealerHand[0].value);
     document.querySelector('.double').removeAttribute('disabled');
     document.querySelector('.hit').removeAttribute('disabled');
     document.querySelector('.stay ').removeAttribute('disabled');
@@ -58,19 +60,23 @@ $(function () {
     computeHand(playerHand);
     messTotal();
     if (playerTotal > 21) {
+      playerDone = true;
       busted();
       render();
     }
     renderPlayer();
     messTotal();
-    document.querySelector('.dTotal').innerHTML = "Dealer showing " + (dealerTotal - dealerHand[1].value);  
+    document.querySelector('.dTotal').innerHTML = "Dealer showing " + (dealerHand[0].value);  
   });
 
   $('.double').on('click', function () {
+    playerDone = true;
+    renderDealer();
     double();
   });
 
   $('.stay').on('click', function () {
+    playerDone = true;
     disable();
     dealerTotal = computeHand(dealerHand);
 // dealer takes cards until they have to stay or bust
@@ -116,7 +122,7 @@ function deal() {
     dealerHand = [];
     deal();
   }
-  renderCards();
+
 }
 
 //computes hands for both players, taking acct for aces
@@ -228,11 +234,11 @@ function renderMoney() {
 }
 //renders
 function render() {
-    disable();
-    renderMoney();
-    messTotal();
-    renderPlayer();
-    renderCards();
+  renderCards()
+  disable();
+  renderMoney();
+  messTotal();
+  renderPlayer();
 }
 
 //checks for winner
@@ -287,7 +293,7 @@ function reset() {
   }
 }
 
-function renderCards() { 
+function renderCards() { if (dealerHand.length == 2 && playerDone == false) {
   document.querySelector('.dealerCards').innerHTML = '';
   dealerHand.forEach(function (card, i) {
     var cardDiv = document.createElement('div');
@@ -296,7 +302,18 @@ function renderCards() {
     } else {
       cardDiv.className = 'card back-blue';
     }
-    
+    document.querySelector('.dealerCards').append(cardDiv);
+  })
+} else {
+  renderDealer();
+}
+}
+
+function renderDealer() {
+  document.querySelector('.dealerCards').innerHTML = '';
+  dealerHand.forEach(function (card) {
+    var cardDiv = document.createElement('div');
+    cardDiv.className = 'card '+card.img;
     document.querySelector('.dealerCards').append(cardDiv);
   })
 }
