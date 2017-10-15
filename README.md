@@ -1,20 +1,32 @@
-BlackJack
+#BlackJack
+---
 
-Description:
+##Description:
+___
 
 A popular gambling card game where the player's objective is to beat the dealer without going over 21.
-If a player gets BlackJack, 21,  in the first 2 cards, they win extra.
+If a player gets **BlackJack**, 21,  in the first two cards, they win extra. Bet big to win big!
 
-Technologies used:
+[BlackJack](https://i.imgur.com/Ui451ZS.jpg)
 
-This application uses HTML, CSS, JavaScript with a little bit of jQuery thrown in.
+##Technologies used:
+___
 
-Where to play and view:
+This application uses:
+1. HTML
+2. CSS
+3. JavaScript
+4. jQuery
 
-To play this game online please go to https://cdecamp77.github.io/Black_Jack/
-You can take a look at the trello by visiting: https://trello.com/b/35z3yQUg
-A look into the building process can be found here at my GitHub page: https://github.com/cdecamp77/Black_Jack
+##Where to play and view:
+___
 
-For the future:
+To play the game click [here](https://cdecamp77.github.io/Black_Jack/ "Play some BlackJack")
+To see my Trello for the game visit [here](https://trello.com/b/35z3yQUg "My Trello")
 
-In the future, players will be able to split and purchase insurance against a possible dealers BlackJack. As well as being able to play along to the sounds of the casino to enhance user experience.
+##For the future:
+___
+
+1. Players will be able to split their hand.
+2. Players will aslo be able to purchase insurance from the dealer. 
+3. I will also be adding some sound effects to enhance the overall user experience. 
