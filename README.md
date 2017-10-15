@@ -6,7 +6,7 @@
 A popular gambling card game where the player's objective is to beat the dealer without going over 21.
 If a player gets **BlackJack**, 21,  in the first two cards, they win extra. Bet big to win big!
 
-[BlackJack](https://i.imgur.com/Hf1gHYA.png "BlackJack screenshot")
+![BlackJack](https://i.imgur.com/Hf1gHYA.png "BlackJack screenshot")
 
 ## Technologies used:
 
