@@ -110,7 +110,3 @@ button:hover {
 .playerCards, .dealerCards {
     height: 14em;
 }
-
-.playerCards {
-    float: right;
-}
