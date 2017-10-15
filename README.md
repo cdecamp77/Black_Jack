@@ -1,5 +1,4 @@
 # BlackJack
----
 
 ## Description:
 
